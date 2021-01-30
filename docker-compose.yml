@@ -1,0 +1,23 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: 
+      context: php
+    ports:
+      - "5000:80"
+    volumes:
+      - ./php:/var/www/app/
+    links:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  go:
+    build:
+      context: go
+    links:
+      - redis
+    volumes:
+      - ./go:/go/src
+
